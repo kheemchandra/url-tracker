@@ -23,7 +23,21 @@
         "default_title": "Tracker",  
         "default_popup": "popup/popup.html"  
     },
-    "commands": {},
+    "commands": {
+        "n-save": {
+            "suggested_key": {
+              "default": "Alt+0" 
+            },
+            "description": "Categorize the current page as NOT helpful"
+        },
+        "y-save": {
+            "suggested_key": {
+              "default": "Alt+1" 
+            },
+            "description": "Categorize the current page as helpful"
+        }
+        
+    },
     "content_scripts": [
         {
             "matches": ["https://www.google.com/search?q=*"],
@@ -37,6 +51,7 @@
     "permissions": [
         "tabs",
         "activeTab",
-        "storage"
+        "storage",
+        "commands"
     ]
 }

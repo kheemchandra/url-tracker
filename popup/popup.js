@@ -1,5 +1,6 @@
 const btnYes = document.getElementById('btn--yes')
 const btnNo = document.getElementById('btn--no') 
+const ans = document.getElementById('ans') 
 
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
@@ -13,34 +14,26 @@ btnYes.addEventListener('click', async () => {
   const tab = await getCurrentTab()
   const url = tab.url.split('#')[0] 
 
-  let yess = await getAllStorageSyncData({'YES': new Array()})
+  let links = await getAllStorageSyncData(null) 
   
-
-
-  let cache = yess['YES']
-  if(!cache.includes(url)){
-    cache.push(url)
-    await setAllStorageSyncData({'YES': cache})
-  } 
+  let encrypt = btoa(url)
+  links[encrypt] = 1
+  
+  await setAllStorageSyncData(links)
+  
 })
  
-function isEmpty(obj){
-    return Object.keys(obj).length === 0 && obj.constructor === Object
-} 
 
 btnNo.addEventListener('click', async () => {
   const tab = await getCurrentTab()
   const url = tab.url.split('#')[0] 
 
-  let nos = await getAllStorageSyncData({'NO': new Array()})
-   
+  let links = await getAllStorageSyncData(null) 
   
-
-  let cache = nos['NO']
-  if(!cache.includes(url)){
-    cache.push(url)
-    await setAllStorageSyncData({'NO': cache})
-  } 
+  let encrypt = btoa(url)
+  links[encrypt] = -1
+  
+  await setAllStorageSyncData(links)
 })
  
 function getAllStorageSyncData(key) { 
@@ -64,3 +57,28 @@ function setAllStorageSyncData(data) {
       });
     });
 }
+
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   if(message === 'send-data'){
+//     sendResponse('OK')
+//   }
+  
+//   // const {type, name} = message
+  
+//   // if (type === 'key-pressed') {
+//   //   ans.textContent = `Your name ${name}`
+//   //   sendResponse('OK boss!');
+//   // }
+// });
+
+
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    if (request.greeting === "hello")
+      sendResponse({farewell: "goodbye"});
+  }
+);

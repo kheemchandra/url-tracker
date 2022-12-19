@@ -2,17 +2,21 @@ chrome.storage.sync.get(null, (response) => {
     if (chrome.runtime.lastError) {
         throw chrome.runtime.lastError
     }
-
-    const {YES, NO} = response
-    console.log('Response is ', response)
-
+     
     const pageLinks = getLinks()
-    pageLinks.forEach( ([h3, link]) => {
-        if(YES.includes(link)){
-            h3.style.color = '#4ef18f'
-        }
-        else if(NO.includes(link)){
-            h3.style.color = '#f14e4e'
+    pageLinks.forEach( ([h3, link]) => { 
+        let encrypt = btoa(link)
+        let status = response[encrypt]
+        switch (status) {
+            case 1:
+                h3.style.color = '#4ef18f'
+                break;
+            case -1:
+                h3.style.color = '#f14e4e'
+                break;
+        
+            default:
+                break;
         } 
     })
 });
