@@ -1,5 +1,4 @@
 chrome.commands.onCommand.addListener(async (command) => {
-    console.log(`Command: ${command}`); 
     let val
     switch (command) {
         case 'y-save':
@@ -14,7 +13,6 @@ chrome.commands.onCommand.addListener(async (command) => {
    
     const tab = await getCurrentTab()
     const url = tab.url.split('#')[0] 
-    console.log('Current url is ', url)
     let links = await getAllStorageSyncData(null) 
 
     let encrypt = btoa(url)
