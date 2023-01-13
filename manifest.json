@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "URL TRACKER",
-    "version": "1.0",
-
+    "version": "1.0.0",
+    "description": "Categorize whether the current web-page is useful or not!",
     "icons": {
         "16": "images/icon-16.png",
         "32": "images/icon-32.png",
