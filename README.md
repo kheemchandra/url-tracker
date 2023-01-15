@@ -4,8 +4,7 @@
  <p align="center" > 
     <img width="200px" src="./images/icon-128.png" alt="URL Tracker logo">
 </p>
-
-![alt text](./images/icon-128.png "Logo Title Text 1")
+ 
 
 
 [Check this extension](https://chrome.google.com/webstore/detail/url-tracker/aeledpmgdlojbmdllfejoefinemkhbbo)
